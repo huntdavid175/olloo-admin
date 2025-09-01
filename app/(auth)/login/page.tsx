@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardFooter,
 } from "@/components/ui/card";
-import { Eye, EyeOff, KeyRound, Apple, Facebook, Chrome } from "lucide-react";
+import { Eye, EyeOff, Apple, Facebook, Chrome } from "lucide-react";
 import { Logo } from "@/components/Brand/Logo";
 
 export default function LoginPage() {

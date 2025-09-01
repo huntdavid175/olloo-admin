@@ -11,15 +11,7 @@ import {
   CardHeader,
   CardFooter,
 } from "@/components/ui/card";
-import {
-  Eye,
-  EyeOff,
-  KeyRound,
-  Apple,
-  Facebook,
-  Chrome,
-  AlertCircle,
-} from "lucide-react";
+import { Eye, EyeOff, AlertCircle } from "lucide-react";
 import { Logo } from "@/components/Brand/Logo";
 
 export default function ResetPasswordPage() {

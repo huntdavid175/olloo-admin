@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,10 +33,6 @@ export default function LoginPage() {
     return { strength } as const;
   }, [password]);
 
-  const strengthPct = (passwordRules.strength / 4) * 100;
-  const strengthLabel = ["very weak", "weak", "fair", "good", "strong"][
-    passwordRules.strength
-  ];
   const strengthColor = [
     "bg-red-500",
     "bg-orange-500",
