@@ -40,8 +40,8 @@ export function SignupForm() {
   ][passwordRules.strength];
 
   return (
-    <Card className="shadow-lg w-full h-full md:h-auto md:w-auto rounded-none md:rounded-md">
-      <CardHeader className="space-y-6">
+    <Card className="shadow-lg w-full h-full md:h-auto md:w-auto rounded-none md:rounded-md flex flex-col">
+      <CardHeader className="space-y-6 pt-24 md:pt-6">
         <div className="flex justify-start">
           <div className="relative inline-flex items-center">
             <select
@@ -73,7 +73,7 @@ export function SignupForm() {
           </p>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 flex-1 flex flex-col">
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <div className="relative">
@@ -128,6 +128,19 @@ export function SignupForm() {
             Log in →
           </Link>
         </div>
+
+        <div className="mt-auto" />
+
+        {/* <p className="text-[11px] leading-relaxed text-muted-foreground">
+          By proceeding, you agree to the{" "}
+          <Link href="#" className="underline underline-offset-2">
+            Terms and Conditions
+          </Link>{" "}
+          and{" "}
+          <Link href="#" className="underline underline-offset-2">
+            Privacy Policy
+          </Link>
+        </p> */}
 
         <p className="text-[11px] leading-relaxed text-muted-foreground">
           By proceeding, you agree to the{" "}

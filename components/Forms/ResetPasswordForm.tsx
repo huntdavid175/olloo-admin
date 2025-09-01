@@ -42,8 +42,8 @@ export function ResetPasswordForm() {
   ];
 
   return (
-    <Card className="shadow-lg w-full h-full md:h-auto md:w-auto rounded-none md:rounded-md">
-      <CardHeader className="space-y-6">
+    <Card className="shadow-lg w-full h-full md:h-auto md:w-auto rounded-none md:rounded-md flex flex-col">
+      <CardHeader className="space-y-6 pt-24 md:pt-6">
         <div className="flex items-center gap-2">
           <Logo size={20} />
           <span className="text-base font-semibold">olloo</span>
@@ -99,7 +99,7 @@ export function ResetPasswordForm() {
           </p>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 flex-1">
         <div className="space-y-2">
           <Label htmlFor="password-confirm">Confirm password</Label>
           <div className="relative">
