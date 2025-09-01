@@ -167,7 +167,7 @@ export default function LoginPage() {
                 </p>
               </div>
 
-              <Button className="w-full">Create Shopify account</Button>
+              <Button className="w-full">Create Olloo account</Button>
 
               <div className="flex items-center gap-4">
                 <div className="h-px flex-1 bg-border" />
@@ -176,7 +176,7 @@ export default function LoginPage() {
               </div>
 
               <div className="text-sm text-center">
-                Already have a Shopify account?{" "}
+                Already have a Olloo account?{" "}
                 <Link
                   href="/login"
                   className="text-blue-600 hover:text-blue-700"
