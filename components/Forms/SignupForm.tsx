@@ -48,7 +48,7 @@ export function SignupForm() {
               aria-label="Country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="appearance-none border bg-secondary text-sm px-2 py-1 pr-8 rounded-md leading-none cursor-pointer"
+              className="appearance-none border bg-secondary text-base md:text-sm px-2 py-1 pr-8 rounded-md leading-none cursor-pointer"
             >
               <option value="GH">🇬🇭 Ghana</option>
               <option value="NG">🇳🇬 Nigeria</option>
