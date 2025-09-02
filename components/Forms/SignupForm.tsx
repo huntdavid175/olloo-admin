@@ -17,6 +17,7 @@ export function SignupForm() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [country, setCountry] = React.useState("GH");
+  const [passwordInteracted, setPasswordInteracted] = React.useState(false);
 
   const passwordRules = React.useMemo(() => {
     const hasMinLength = password.length >= 8;
@@ -65,15 +66,32 @@ export function SignupForm() {
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" defaultValue="lidiya@refero.design" />
-          <p className="text-xs text-muted-foreground">
+          {/* <p className="text-xs text-muted-foreground">
             Did you mean{" "}
             <Link href="#" className="text-blue-600 hover:text-blue-700">
               lidiya@refero.de?
             </Link>
-          </p>
+          </p> */}
         </div>
       </CardHeader>
       <CardContent className="space-y-6 flex-1 flex flex-col">
+        <div className="space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="first_name">First name</Label>
+              <Input id="first_name" autoComplete="given-name" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="last_name">Last name</Label>
+              <Input id="last_name" autoComplete="family-name" />
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Enter your first and last name as they appear on your
+            government-issued ID.
+          </p>
+        </div>
+
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <div className="relative">
@@ -82,6 +100,7 @@ export function SignupForm() {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setPasswordInteracted(true)}
               className="pr-10"
             />
             <button
@@ -97,21 +116,25 @@ export function SignupForm() {
               )}
             </button>
           </div>
-          <div className="mt-2 grid grid-cols-4 gap-1">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <div
-                key={idx}
-                className={`h-1.5 ${
-                  idx < passwordRules.strength ? strengthColor : "bg-muted"
-                }`}
-              />
-            ))}
-          </div>
-          <p className="text-xs text-muted-foreground mt-2">
-            Your password must be at least 8 characters, include upper and lower
-            case letters, a number, and a symbol, and can’t begin or end with a
-            space.
-          </p>
+          {passwordInteracted && (
+            <>
+              <div className="mt-2 grid grid-cols-4 gap-1">
+                {Array.from({ length: 4 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`h-1.5 ${
+                      idx < passwordRules.strength ? strengthColor : "bg-muted"
+                    }`}
+                  />
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Your password must be at least 8 characters, include upper and
+                lower case letters, a number, and a symbol, and can’t begin or
+                end with a space.
+              </p>
+            </>
+          )}
         </div>
 
         <Button className="w-full">Create Olloo account</Button>
