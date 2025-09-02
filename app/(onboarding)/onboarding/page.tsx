@@ -227,6 +227,27 @@ export default function OnboardingPage() {
       );
       prevAppleBarStyleRef.current = null;
     }
+
+    // Cleanup: restore previous values on unmount/navigation
+    return () => {
+      const tMeta = document.querySelector(
+        'meta[name="theme-color"]'
+      ) as HTMLMetaElement | null;
+      if (tMeta && prevThemeColorRef.current !== null) {
+        tMeta.setAttribute("content", prevThemeColorRef.current || "#ffffff");
+        prevThemeColorRef.current = null;
+      }
+      const aMeta = document.querySelector(
+        'meta[name="apple-mobile-web-app-status-bar-style"]'
+      ) as HTMLMetaElement | null;
+      if (aMeta && prevAppleBarStyleRef.current !== null) {
+        aMeta.setAttribute(
+          "content",
+          prevAppleBarStyleRef.current || "default"
+        );
+        prevAppleBarStyleRef.current = null;
+      }
+    };
   }, [isCompleting, showSuccess]);
 
   React.useEffect(() => {
