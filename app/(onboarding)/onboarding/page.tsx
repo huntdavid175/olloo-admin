@@ -372,9 +372,22 @@ export default function OnboardingPage() {
                       {current.options.map((opt) => {
                         const isActive = selected[current.key].has(opt.id);
                         return (
-                          <button
+                          <div
                             key={opt.id}
-                            onClick={() => toggle(opt.id)}
+                            role="button"
+                            tabIndex={0}
+                            onClick={(e) => {
+                              const target = e.target as HTMLElement;
+                              if (target.closest('[data-slot="checkbox"]'))
+                                return;
+                              toggle(opt.id);
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                toggle(opt.id);
+                              }
+                            }}
                             className={`flex items-start gap-3 rounded-md border px-4 py-4 text-left transition-colors ${
                               isActive
                                 ? "bg-[#303030] text-white border-[#303030]"
@@ -404,7 +417,7 @@ export default function OnboardingPage() {
                                 {opt.description}
                               </div>
                             </div>
-                          </button>
+                          </div>
                         );
                       })}
                     </div>
