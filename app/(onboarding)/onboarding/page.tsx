@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Option = {
   id: string;
@@ -23,105 +25,143 @@ type Step = {
 const stepData: Step[] = [
   {
     key: "sellWhere",
-    title: "Where would you like to sell?",
-    subtitle: "We'll make sure you're set up to sell in these places",
+    title: "Where do you currently sell?",
+    subtitle: "Select all that apply",
     options: [
       {
-        id: "online",
-        title: "An online store",
-        description: "Create a fully customizable website",
+        id: "instagram",
+        title: "Instagram",
+        description: "Product posts, Reels, Stories, and DM orders",
       },
       {
-        id: "retail",
-        title: "In person at a retail store",
-        description: "Brick-and-mortar stores",
+        id: "tiktok",
+        title: "TikTok",
+        description: "Short video content with product tags and links",
       },
       {
-        id: "events",
-        title: "In person at events",
-        description: "Markets, fairs, and pop-ups",
+        id: "snapchat",
+        title: "Snapchat",
+        description: "Stories and Spotlight with swipe-up product links",
       },
       {
-        id: "existing",
-        title: "An existing website or blog",
-        description: "Add a Buy Button to your website",
+        id: "twitterx",
+        title: "Twitter/X",
+        description: "Posts/threads with product links and replies",
       },
       {
-        id: "social",
-        title: "Social media",
-        description: "Reach customers on Facebook, Instagram, TikTok, and more",
+        id: "whatsapp",
+        title: "WhatsApp",
+        description: "Direct chats, broadcast lists, and catalog orders",
       },
       {
-        id: "marketplaces",
-        title: "Online marketplaces",
-        description: "List products on Etsy, Amazon, and more",
+        id: "other",
+        title: "Other",
+        description:
+          "Another channel (e.g., Facebook, Etsy, in‑person, website)",
       },
     ],
   },
   {
     key: "businessStage",
-    title: "What describes your business today?",
+    title: "What type of products do you sell?",
     subtitle: "This helps us tailor your setup",
     options: [
       {
-        id: "new",
-        title: "I'm just getting started",
-        description: "No sales yet",
+        id: "fashion",
+        title: "Fashion",
+        description: "Apparel, footwear, accessories, and hair",
       },
       {
-        id: "online_only",
-        title: "I'm already selling online",
-        description: "Migrating or expanding",
+        id: "beauty",
+        title: "Beauty & Personal Care",
+        description: "Cosmetics, skincare, haircare, and wellness",
       },
       {
-        id: "in_person",
-        title: "I'm selling in-person",
-        description: "Markets, fairs, or retail",
+        id: "food",
+        title: "Food & Drinks",
+        description: "Packaged foods, beverages, or meal kits",
       },
       {
-        id: "both",
-        title: "Both online and in-person",
-        description: "Multiple channels",
+        id: "electronics",
+        title: "Electronics & Gadgets",
+        description: "Devices, accessories, and tech gear",
+      },
+      {
+        id: "home",
+        title: "Home & Lifestyle",
+        description: "Decor, furnishings, and household items",
+      },
+      {
+        id: "other_products",
+        title: "Other",
+        description: "Another category not listed here",
       },
     ],
   },
   {
-    key: "revenue",
-    title: "What's your current monthly revenue?",
-    subtitle: "An estimate is fine",
+    key: "payments",
+    title: "How do you usually take payments?",
+    subtitle: "Select all that apply",
     options: [
-      { id: "none", title: "Not selling yet", description: "Pre-launch" },
-      { id: "under5k", title: "Up to $5,000", description: "Early traction" },
-      { id: "5k_25k", title: "$5,000 – $25,000", description: "Growing" },
-      { id: "25k_plus", title: "$25,000+", description: "Scaling" },
+      {
+        id: "cod",
+        title: "Cash on Delivery",
+        description: "Collect cash when the order is delivered",
+      },
+      {
+        id: "mobile_money",
+        title: "Mobile Money",
+        description: "Airtel/Tigo cash, MoMo, Vodafone Cash, etc.",
+      },
+      {
+        id: "bank_transfer",
+        title: "Bank Transfer",
+        description: "Direct bank-to-bank transfers",
+      },
+      {
+        id: "other_payment",
+        title: "Other",
+        description: "Another payment method not listed",
+      },
     ],
   },
   {
-    key: "products",
-    title: "What will you sell?",
-    subtitle: "Choose all that apply",
+    key: "challenges",
+    title: "What's your biggest challenge selling online?",
+    subtitle: "Select all that apply",
     options: [
       {
-        id: "physical",
-        title: "Physical products",
-        description: "Items you ship",
+        id: "too_many_chats",
+        title: "Too many customer chats before orders",
+        description: "Answering questions takes too much time before checkout",
       },
       {
-        id: "digital",
-        title: "Digital products",
-        description: "Downloads or memberships",
+        id: "missed_offline",
+        title: "Missed sales when I’m offline",
+        description: "Customers can’t order when you’re unavailable",
       },
       {
-        id: "services",
-        title: "Services",
-        description: "Appointments or projects",
+        id: "tracking",
+        title: "Tracking orders & stock",
+        description: "Hard to track inventory levels and order status",
       },
       {
-        id: "dropship",
-        title: "Dropshipping",
-        description: "Fulfilled by partners",
+        id: "getting_customers",
+        title: "Getting more customers",
+        description: "Need more traffic and conversions",
+      },
+      {
+        id: "managing_payments",
+        title: "Managing payments",
+        description: "Collecting and reconciling payments is difficult",
       },
     ],
+  },
+  {
+    key: "storeDetails",
+    title: "Store Details (Short Form)",
+    subtitle: "Set your store name and bio",
+    options: [],
   },
 ];
 
@@ -131,8 +171,27 @@ export default function OnboardingPage() {
     () => Object.fromEntries(stepData.map((s) => [s.key, new Set<string>()]))
   );
 
+  // Store Details form state
+  const [storeName, setStoreName] = React.useState("");
+  const [storeHandle, setStoreHandle] = React.useState("");
+  const [storeBio, setStoreBio] = React.useState("");
+
+  React.useEffect(() => {
+    const handle = storeName
+      .toLowerCase()
+      .trim()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+    setStoreHandle(handle);
+  }, [storeName]);
+
   const current = stepData[step];
   const progress = ((step + 1) / stepData.length) * 100;
+  const canProceed =
+    current.key === "storeDetails"
+      ? storeName.trim().length > 0
+      : selected[current.key].size > 0;
 
   function toggle(id: string) {
     setSelected((prev) => {
@@ -153,17 +212,32 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen w-full bg-black/90 flex items-stretch justify-stretch px-0 md:items-center md:justify-center md:px-4">
       <div className="relative w-full flex-1 min-h-screen md:min-h-0 max-w-3xl md:max-w-2xl">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={current.key}
-            initial={{ opacity: 0, y: 20, rotateX: -8 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            exit={{ opacity: 0, y: -20, rotateX: 8 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="relative z-10"
-          >
-            <Card className="relative z-10 rounded-none md:rounded-md bg-white text-black shadow-2xl overflow-hidden h-full w-full min-h-screen md:min-h-0">
-              <div className="p-5 md:p-8 pb-28 md:pb-8">
+        <Card className="relative z-10 rounded-none md:rounded-md bg-white text-black shadow-2xl overflow-hidden h-full w-full min-h-screen md:min-h-0 md:h-[620px] flex flex-col">
+          <div className="p-5 md:p-8 pb-28 md:pb-8 md:flex-1 md:overflow-y-auto">
+            {/* Desktop progress indicator */}
+            <div className="hidden md:block mb-6">
+              <div className="text-sm text-neutral-600 font-medium">
+                Question {step + 1} of {stepData.length}
+              </div>
+              <div className="mt-2 flex items-center gap-2 w-40">
+                {stepData.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`${
+                      i < step + 1 ? "bg-neutral-900" : "bg-neutral-200"
+                    } h-1 rounded-full flex-1`}
+                  />
+                ))}
+              </div>
+            </div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={current.key}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
                 <h1 className="text-xl md:text-2xl font-semibold">
                   {current.title}
                 </h1>
@@ -171,90 +245,145 @@ export default function OnboardingPage() {
                   {current.subtitle}
                 </p>
 
-                <div className="mt-6 grid gap-3 md:grid-cols-2 text-[13px] md:text-sm">
-                  {current.options.map((opt) => {
-                    const isActive = selected[current.key].has(opt.id);
-                    return (
-                      <button
-                        key={opt.id}
-                        onClick={() => toggle(opt.id)}
-                        className={`flex items-start gap-3 rounded-md border px-4 py-4 text-left transition-colors ${
-                          isActive
-                            ? "bg-[#303030] text-white border-[#303030]"
-                            : "bg-neutral-50 hover:bg-neutral-100 border-neutral-200"
-                        }`}
-                      >
-                        <Checkbox
-                          id={opt.id}
-                          checked={isActive}
-                          onCheckedChange={() => toggle(opt.id)}
-                          className="mt-1 data-[state=checked]:bg-[#303030] data-[state=checked]:border-[#303030] data-[state=checked]:text-white"
-                        />
-                        <div className="flex flex-col">
-                          <label
-                            htmlFor={opt.id}
-                            className="font-medium leading-tight"
-                          >
-                            {opt.title}
-                          </label>
-                          <div
-                            className={`text-[11px] md:text-xs ${
-                              isActive ? "text-neutral-300" : "text-neutral-600"
-                            }`}
-                          >
-                            {opt.description}
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
+                {current.key === "storeDetails" ? (
+                  <div className="mt-6 space-y-4 text-[13px] md:text-sm">
+                    <div className="space-y-2">
+                      <Label htmlFor="storeName">Store Name</Label>
+                      <Input
+                        id="storeName"
+                        value={storeName}
+                        onChange={(e) => setStoreName(e.target.value)}
+                        placeholder="e.g., Lidiya Boutique"
+                      />
+                      <div className="text-[11px] text-neutral-600">
+                        URL handle:
+                        <span className="ml-1 font-medium text-neutral-800">
+                          olloo.shop/{storeHandle || "your-store"}
+                        </span>
+                      </div>
+                    </div>
 
-                {/* Desktop actions */}
-                <div className="mt-6 hidden md:flex items-center justify-between">
-                  <Link
-                    href="#"
-                    className="text-sm text-neutral-500 hover:text-neutral-700"
-                  >
-                    Skip customized setup →
-                  </Link>
-                  <div className="flex items-center gap-2">
-                    {step > 0 && (
-                      <Button
-                        variant="secondary"
-                        onClick={back}
-                        className="rounded-md"
-                      >
-                        Back
-                      </Button>
-                    )}
-                    <Button onClick={next} className="rounded-md">
-                      {step < stepData.length - 1 ? "Next →" : "Finish"}
-                    </Button>
+                    <div className="space-y-2">
+                      <Label htmlFor="storeBio">Short Store Bio/Tagline</Label>
+                      <Input
+                        id="storeBio"
+                        value={storeBio}
+                        onChange={(e) => setStoreBio(e.target.value)}
+                        placeholder="e.g., Handmade essentials for everyday"
+                      />
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Mobile bottom bar */}
-              <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-white border-t">
-                <div className="h-1 bg-neutral-200">
-                  <div
-                    className="h-full bg-neutral-900"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div className="p-4 flex gap-3">
-                  <Button variant="outline" className="flex-1 rounded-md">
-                    Skip all
+                ) : (
+                  <div className="mt-6 grid gap-3 md:grid-cols-2 text-[13px] md:text-sm">
+                    {current.options.map((opt) => {
+                      const isActive = selected[current.key].has(opt.id);
+                      return (
+                        <button
+                          key={opt.id}
+                          onClick={() => toggle(opt.id)}
+                          className={`flex items-start gap-3 rounded-md border px-4 py-4 text-left transition-colors ${
+                            isActive
+                              ? "bg-[#303030] text-white border-[#303030]"
+                              : "bg-neutral-50 hover:bg-neutral-100 border-neutral-200"
+                          }`}
+                        >
+                          <Checkbox
+                            id={opt.id}
+                            checked={isActive}
+                            onCheckedChange={() => toggle(opt.id)}
+                            className="mt-1 data-[state=checked]:bg-[#303030] data-[state=checked]:border-[#303030] data-[state=checked]:text-white"
+                          />
+                          <div className="flex flex-col">
+                            <label
+                              htmlFor={opt.id}
+                              className="font-medium leading-tight"
+                            >
+                              {opt.title}
+                            </label>
+                            <div
+                              className={`text-[11px] md:text-xs ${
+                                isActive
+                                  ? "text-neutral-300"
+                                  : "text-neutral-600"
+                              }`}
+                            >
+                              {opt.description}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+            {/* Desktop actions (not animated) */}
+            <div className="mt-6 hidden md:flex items-center justify-between">
+              <Link
+                href="#"
+                className="text-sm text-neutral-500 hover:text-neutral-700"
+              >
+                Skip customized setup →
+              </Link>
+              <div className="flex items-center gap-2">
+                {step > 0 && (
+                  <Button
+                    variant="secondary"
+                    onClick={back}
+                    className="rounded-md"
+                  >
+                    Back
                   </Button>
-                  <Button className="flex-1 rounded-md" onClick={next}>
+                )}
+                <Button
+                  onClick={next}
+                  className="rounded-md"
+                  disabled={!canProceed}
+                >
+                  {step < stepData.length - 1 ? "Next →" : "Finish"}
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile bottom bar */}
+          <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-white border-t">
+            <div className="h-1 bg-neutral-200">
+              <div
+                className="h-full bg-neutral-900 transition-[width] duration-500 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="p-4 flex gap-3">
+              {step > 0 ? (
+                <>
+                  <Button
+                    variant="outline"
+                    className="flex-1 rounded-md"
+                    onClick={back}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    className="flex-1 rounded-md"
+                    onClick={next}
+                    disabled={!canProceed}
+                  >
                     {step < stepData.length - 1 ? "Next" : "Finish"}
                   </Button>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
+                </>
+              ) : (
+                <Button
+                  className="w-full rounded-md"
+                  onClick={next}
+                  disabled={!canProceed}
+                >
+                  Next
+                </Button>
+              )}
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );
