@@ -182,6 +182,53 @@ export default function OnboardingPage() {
   const [isCompleting, setIsCompleting] = React.useState(false);
   const [showSuccess, setShowSuccess] = React.useState(false);
 
+  // Make browser chrome (status/address bars) black during finish overlays
+  const prevThemeColorRef = React.useRef<string | null>(null);
+  const prevAppleBarStyleRef = React.useRef<string | null>(null);
+  React.useEffect(() => {
+    const active = isCompleting || showSuccess;
+    const doc = document;
+    let themeMeta = doc.querySelector(
+      'meta[name="theme-color"]'
+    ) as HTMLMetaElement | null;
+    if (!themeMeta) {
+      themeMeta = doc.createElement("meta");
+      themeMeta.setAttribute("name", "theme-color");
+      doc.head.appendChild(themeMeta);
+    }
+    if (active) {
+      if (prevThemeColorRef.current === null) {
+        prevThemeColorRef.current = themeMeta.getAttribute("content");
+      }
+      themeMeta.setAttribute("content", "#000000");
+    } else if (prevThemeColorRef.current !== null) {
+      themeMeta.setAttribute("content", prevThemeColorRef.current || "#ffffff");
+      prevThemeColorRef.current = null;
+    }
+
+    // iOS Safari status bar style (best-effort)
+    let appleMeta = doc.querySelector(
+      'meta[name="apple-mobile-web-app-status-bar-style"]'
+    ) as HTMLMetaElement | null;
+    if (!appleMeta) {
+      appleMeta = doc.createElement("meta");
+      appleMeta.setAttribute("name", "apple-mobile-web-app-status-bar-style");
+      doc.head.appendChild(appleMeta);
+    }
+    if (active) {
+      if (prevAppleBarStyleRef.current === null) {
+        prevAppleBarStyleRef.current = appleMeta.getAttribute("content");
+      }
+      appleMeta.setAttribute("content", "black-translucent");
+    } else if (prevAppleBarStyleRef.current !== null) {
+      appleMeta.setAttribute(
+        "content",
+        prevAppleBarStyleRef.current || "default"
+      );
+      prevAppleBarStyleRef.current = null;
+    }
+  }, [isCompleting, showSuccess]);
+
   React.useEffect(() => {
     const handle = storeName
       .toLowerCase()
