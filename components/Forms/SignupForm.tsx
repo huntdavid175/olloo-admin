@@ -13,7 +13,10 @@ import {
 } from "@/components/ui/card";
 import { Eye, EyeOff, ChevronDown } from "lucide-react";
 import { useActionState } from "react";
-import { signupWithForm } from "@/app/actions/signupAction";
+import {
+  signupWithForm,
+  type SignupFormState,
+} from "@/app/actions/signupAction";
 import { useRouter } from "next/navigation";
 
 export function SignupForm() {
@@ -23,10 +26,10 @@ export function SignupForm() {
   const [passwordInteracted, setPasswordInteracted] = React.useState(false);
   const router = useRouter();
 
-  const [state, formAction, pending] = useActionState<any, FormData>(
-    signupWithForm,
-    undefined
-  );
+  const [state, formAction, pending] = useActionState<
+    SignupFormState,
+    FormData
+  >(signupWithForm, undefined);
 
   const [submitted, setSubmitted] = React.useState(false);
   React.useEffect(() => {
